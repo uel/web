@@ -6,13 +6,13 @@
         var client_id = "9f0a92bf6c79cb1af9e9";
         var client_secret = "7d2993d0a1f72fcbdbb4afa54fd24e01ecb7a1be";
         console.log(code);
-        fetch("https://github.com/login/oauth/access_token", {
-            method: "POST",
-            body: `{
-                "client_id": ${client_id},
-                "client_secret": ${client_secret},
-                "code":${code} 
-            }`}).then(res => console.log(res)); 
+        
+        var val = JSON.stringify({"client_id": client_id,
+                        "client_secret": client_secret,
+                        "code":code,
+                        "redirect_uri":"https://uel.github.io/web/" }).replace("{", "':'',")
+        console.log(val);
+        document.getElementById("inp").value = val;
     }
 </script>
 
@@ -20,3 +20,7 @@
 
 <button onclick="location.href = 'https://github.com/login/oauth/authorize?client_id=9f0a92bf6c79cb1af9e9&redirect_uri=https://uel.github.io/web/&scope=repo'">Authorize</button>
 
+<form action="https://github.com/login/oauth/access_token"" method="post" enctype="text/plain">
+    <input id=inp style ="visibility: hidden;" type="text" name="&quot;{'" value="':'', 'code':'12345'}&quot;">
+    <button type="submit">GetToken</button>
+</form>
